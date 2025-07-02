@@ -8,7 +8,7 @@ type FindAllBooksServiceResponse = {
 }
 
 @Injectable()
-export class FetchRecentProductsService {
+export class FindAllBooksService{
   constructor(private booksRepository: BookRepository) {}
 
   async execute(): Promise<FindAllBooksServiceResponse> {

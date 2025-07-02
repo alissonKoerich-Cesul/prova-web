@@ -1,16 +1,14 @@
-import { Controller, Get } from "@nestjs/common";
-import { FindAllBooksService } from "./find-all-books.service"; 
+import { Controller, Get } from '@nestjs/common';
+import { FindAllBooksService } from './find-all-books.service'; 
+import { Book } from '@prisma/client';
 
-@Controller('/books')
-export class FindAllBooksController {
-  constructor(private findAllBooks: FindAllBooksService) {}
+@Controller('books')
+export class BooksController {
+  constructor(private readonly findAllBooksService: FindAllBooksService) {}
 
   @Get()
-  async handle() {
-    const books = await this.findAllBooks.execute();
-
-    return {
-      books
-    };
+  async findAll() {
+    const result = await this.findAllBooksService.execute();
+    return result;
   }
 }

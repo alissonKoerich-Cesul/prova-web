@@ -4,7 +4,7 @@ import { Book } from "@prisma/client";
 
 
 type FindAllBooksServiceResponse = {
-  books: Book[];
+  book: Book[] | null;
 }
 
 @Injectable()
@@ -14,10 +14,11 @@ export class FindAllBooksService{
   async execute(): Promise<FindAllBooksServiceResponse> {
     const books = await this.booksRepository.findAll();
 
-    const newBooks: Book[] = [];
+
+    const validBooks = (books ?? []).filter((b): b is Book => typeof b.id === "string");
 
     return {
-      books: newBooks
+      book: validBooks.length > 0 ? validBooks : null
     };
   }
 }
